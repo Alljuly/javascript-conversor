@@ -1,0 +1,43 @@
+<html>
+	<head>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&family=Nunito+Sans:opsz,wght@6..12,500;6..12,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./src/style.css">
+		<title>Conversor de Moedas</title>
+	</head>
+	<body>
+		<main>
+			
+				<h1>Conversor de Moedas</h1>
+
+            <div class="input-container">
+                
+
+                    <input type="number" id="valor" class="valor" value="0.00"></input>
+    
+                   <div class="radio-container">
+                    <div class="radio-input">
+                        <input type="radio" name="currency" value="US" id="US" checked
+                        >
+                        <label for="US">US$</label>
+                    </div>
+                    <div class="radio-input">
+                        <input type="radio" name="currency" value="EUR" id="EUR">
+                        <label for="EUR">EUR</label>
+                    </div>
+                   </div>
+            
+    
+            </div>
+            <div>
+                <h2 class="resultado">0.00</h2>
+            </div>
+		</main>
+
+        <script src="./src/index.js">
+
+        </script>
+	</body>
+</html>
