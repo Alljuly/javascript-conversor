@@ -2,8 +2,8 @@ let valor = document.getElementById("valor");
 let moedas = document.getElementsByName("currency");
 let res = document.querySelector(".resultado");
 
-const urlUSD = 'https://economia.awesomeapi.com.br/last/USD-BRL';
-const urlEUR = 'https://economia.awesomeapi.com.br/last/EUR-BRL';
+const urlUSD = "https://economia.awesomeapi.com.br/last/USD-BRL";
+const urlEUR = "https://economia.awesomeapi.com.br/last/EUR-BRL";
 
 moedas.forEach((moeda) => {
 	moeda.addEventListener("change", conversao);
@@ -29,7 +29,7 @@ valor.addEventListener("blur", function () {
 async function conversao() {
 	var valorDigitado = parseFloat(valor.value);
 
-	moedas.forEach((moeda) => {
+	moedas.forEach(async (moeda) => {
 		if (moeda.checked) {
 			if (moeda.value === "US") {
 				res.textContent = await cotacao(urlUSD, valorDigitado);
@@ -41,12 +41,11 @@ async function conversao() {
 }
 
 async function cotacao(url, dado) {
-	return  fetch(url)
-  		.then(response => response.json())
- 		.then(data => {
-    		const valor = data[0];
-    		return (valor.bid * dado).toFixed(2) 
-  	})
-  	.catch(error => `Erro ao pegar a cotação: ${error}`);
+	return fetch(url)
+		.then((response) => response.json())
+		.then((data) => {
+			const valor = url.includes("USD-BRL") ? data.USDBRL.bid : data.EURBRL.bid;
+			return (valor * dado).toFixed(2);
+		})
+		.catch((error) => `Erro ao pegar a cotação: ${error} ${valor}`);
 }
-
