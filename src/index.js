@@ -2,6 +2,9 @@ let valor = document.getElementById("valor");
 let moedas = document.getElementsByName("currency");
 let res = document.querySelector(".resultado");
 
+const urlUSD = 'https://economia.awesomeapi.com.br/last/USD-BRL';
+const urlEUR = 'https://economia.awesomeapi.com.br/last/EUR-BRL';
+
 moedas.forEach((moeda) => {
 	moeda.addEventListener("change", conversao);
 });
@@ -29,18 +32,21 @@ function conversao() {
 	moedas.forEach((moeda) => {
 		if (moeda.checked) {
 			if (moeda.value === "US") {
-				res.textContent = dolar(valorDigitado);
+				res.textContent = cotacao(urlUSD, valorDigitado);
 			} else {
-				res.textContent = euro(valorDigitado);
+				res.textContent = cotacao(urlEUR, valorDigitado);
 			}
 		}
 	});
 }
 
-function dolar(dado) {
-	return (dado * 4.83).toFixed(2);
+function cotacao(url, dado) {
+	fetch(url)
+  		.then(response => response.json())
+ 		.then(data => {
+    		const valor = data.url;
+    		return valor.bid
+  	})
+  	.catch(error => `Erro ao pegar a cotação: ${error}`);
 }
 
-function euro(dado) {
-	return (dado * 5.83).toFixed(2);
-}
