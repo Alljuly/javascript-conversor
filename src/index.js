@@ -26,26 +26,26 @@ valor.addEventListener("blur", function () {
 	conversao();
 });
 
-function conversao() {
+async function conversao() {
 	var valorDigitado = parseFloat(valor.value);
 
 	moedas.forEach((moeda) => {
 		if (moeda.checked) {
 			if (moeda.value === "US") {
-				res.textContent = cotacao(urlUSD, valorDigitado);
+				res.textContent = await cotacao(urlUSD, valorDigitado);
 			} else {
-				res.textContent = cotacao(urlEUR, valorDigitado);
+				res.textContent = await cotacao(urlEUR, valorDigitado);
 			}
 		}
 	});
 }
 
-function cotacao(url, dado) {
-	fetch(url)
+async function cotacao(url, dado) {
+	return  fetch(url)
   		.then(response => response.json())
  		.then(data => {
-    		const valor = data.url;
-    		return valor.bid
+    		const valor = data[0];
+    		return (valor.bid * dado).toFixed(2) 
   	})
   	.catch(error => `Erro ao pegar a cotação: ${error}`);
 }
